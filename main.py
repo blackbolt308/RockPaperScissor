@@ -1,4 +1,4 @@
-from random import random
+from random import random, choice
 class Game:
 
     game_actions = {"Rock" : 1, "Paper" : 2, "Scissor" : 3}
@@ -6,12 +6,21 @@ class Game:
     def run(self):
 
        # print(random(self.game_actions))
-        print(self.rule("Scissor", "Paper"))
+        player1 = choice(list(self.game_actions.keys()))
+        player2 = choice(list(self.game_actions.keys()))
+        print(f"Player 1 action => {player1}; Player 2 action: {player2}")
+        winner_result = self.rule(player1, player2)
+        if winner_result == "Tie":
+            print("Both player actions are same. Hence match is a tie.")
+        else:
+            print(f"{self.rule(player1, player2)} Wins")
 
     def rule(self, player1_action, player2_action):
         result = "None"
 
-        if self.game_actions[player2_action] == 3 and self.game_actions[player1_action] == 1:
+        if player1_action == player2_action:
+            result = "Tie"
+        elif self.game_actions[player2_action] == 3 and self.game_actions[player1_action] == 1:
             result = "Player 1"
         elif self.game_actions[player2_action] == 1 and self.game_actions[player1_action] == 3:
             result = "Player 2"
